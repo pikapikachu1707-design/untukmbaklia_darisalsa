@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Mbakku 🤍</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Segoe UI',sans-serif;
+background:radial-gradient(circle at bottom,#0a2540,#020617);
+color:#e0f2ff;
+overflow-x:hidden;
+animation:fadeIn 1.5s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* STARS */
+.stars{position:fixed;width:100%;height:100%;z-index:-3}
+.star{
+position:absolute;width:2px;height:2px;
+background:white;border-radius:50%;
+animation:twinkle 3s infinite;
+}
+@keyframes twinkle{50%{opacity:.3}}
+
+section{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:40px;
+}
+
+.box{
+max-width:850px;
+width:100%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+padding:40px;
+border-radius:25px;
+text-align:center;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+.box.show{opacity:1;transform:translateY(0)}
+
+button{
+background:#9ddcff;
+border:none;
+padding:10px 22px;
+border-radius:20px;
+cursor:pointer;
+margin:10px;
+}
+
+.typewriter{white-space:pre-line;font-size:20px;line-height:1.8}
+
+/* GALERI */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:20px;
+}
+.gallery img{
+width:100%;
+border-radius:15px;
+cursor:pointer;
+transition:.4s;
+}
+.gallery img:hover{transform:scale(1.05)}
+
+/* GAME */
+.game-star{font-size:50px;cursor:pointer}
+
+/* LILIN */
+#flame{
+display:inline-block;
+animation:flicker .15s infinite;
+}
+@keyframes flicker{
+0%{opacity:1}
+50%{opacity:.6}
+100%{opacity:1}
+}
+
+/* ENDING */
+#ending{
+position:fixed;
+inset:0;
+background:black;
+color:white;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:40px;
+z-index:9999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<audio id="bgm" loop>
+<source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="heart" loop>
+<source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<section>
+<div class="box show">
+<h1>🌙 Selamat Ulang Tahun</h1>
+<button onclick="toggleMusic()">🎵 Klik 1x untuk music hidup</button>
+</div>
+</section>
+
+<!-- SURAT 01 -->
+<section>
+<div class="box">
+<h1>💌 Surat 01</h1>
+<div id="s1" class="typewriter"></div>
+</div>
+</section>
+
+<!-- SURAT 02 -->
+<section>
+<div class="box">
+<h1>🌠 Surat 02</h1>
+<div id="s2" class="typewriter"></div>
+</div>
+</section>
+
+<!-- GALERI -->
+<section>
+<div class="box">
+<h1>📸 Potongan Kenangan</h1>
+<p>beberapa momen kecil yang selalu berarti 🤍</p>
+<div class="gallery">
+<img src="gallery/foto1.jpeg">
+<img src="gallery/foto2.jpeg">
+<img src="gallery/foto3.jpeg">
+</div>
+</div>
+</section>
+
+<!-- GAME -->
+<section>
+<div class="box">
+<h1>🧠 Mini Game</h1>
+<p>Klik bintang sampai 5 ✨</p>
+<div class="game-star" onclick="tapStar()">⭐</div>
+<p id="score">0</p>
+</div>
+</section>
+
+<!-- LILIN -->
+<section>
+<div class="box">
+<h1>🕯️ Tiup Lilin</h1>
+<p>tiup ke mic yaa 🎂</p>
+
+<div style="font-size:90px">
+🕯️ <span id="flame">🔥</span>
+</div>
+
+<p id="micStatus">Lilin masih menyala...</p>
+<button onclick="startMic()">Klik ini dan tiup pakai mic 🎤</button>
+</div>
+</section>
+
+<!-- END -->
+<section>
+<div class="box">
+<h1>🌌 Penutup</h1>
+<button onclick="startEnding()">Akhiri</button>
+</div>
+</section>
+
+<div id="ending">
+<div id="endingText" class="typewriter"></div>
+<button onclick="location.reload()">🔁 Ulang</button>
+</div>
+
+<script>
+// STARS
+for(let i=0;i<150;i++){
+let s=document.createElement('div');
+s.className='star';
+s.style.top=Math.random()*100+'%';
+s.style.left=Math.random()*100+'%';
+document.querySelector('.stars').appendChild(s);
+}
+
+// SCROLL
+window.addEventListener('scroll',()=>{
+document.querySelectorAll('.box').forEach(b=>{
+if(b.getBoundingClientRect().top<window.innerHeight-100)
+b.classList.add('show');
+});
+});
+
+// TYPEWRITER
+function type(el,text){
+let i=0;
+let t=setInterval(()=>{
+el.innerHTML+=text[i];
+i++;
+if(i>=text.length) clearInterval(t);
+},40);
+}
+
+type(document.getElementById('s1'),
+`selamat meningkat usia, mbakkku tersayang. semoga dengan bertambahnya umur ini, 
+allah senantiasa melimpahkan rezeki dan kasih sayang kepadamu serta keberkatan 
+dalam setiap langkahmu. terimakasih karna selama ini telah menjadi mbakk yang kuat, 
+yang baik hati, yang selalu memberi kata semangat. kepada mbakk semoga allah senantiasa 
+menjaga kesihatanmu, mengurniakan rezeki yang luas, serta kebahagiaan yang tidak putus.
+dan semoga segala doa dan impian kamu mencapai dan dipermudahkan, happie birthdayy yaa 💕💕`);
+
+type(document.getElementById('s2'),
+`Hai mbak lia,
+
+today it's ur dayy selamat bertambah usiaa, i'll always support u from afar & Heppy level up dayy!!! 
+make a Whis fot ur b,dayy, semoga hall baik selalu menyerimuuu sehat selaluu mbaaa!!!💓 
+trimaaakasiii sudah menjadi kakak perempuan yang baikk!! apapun susahnya apapun sedihnya 
+apapun senangnya kamuu nikmati dan bersyukur semoga banyak kebahagiaan yang kembali hari hari ini. 
+semoga semua harapan yangg diinginkan menjadii kenyataan semoga akan adaaa banyakk kebahagiaan yang 
+datangg ke dalam hidupmuu semogaaa harimuu jauuh lebih menyenangkan sesuai dengan harapan muuu aminnn🫂🫂 
+sekali lagi selamat ulang tahun yaaaa terimakasih sudah menjadi kuat selama ini walaupun awalnya 
+di kuaat kuat in aja dan selanjutnya harus selalu kuat ceria dan bahagia yaaa mbaaa liaaa,, 
+jaga kesehatan sehat² di sana yaaa, maakasihh udah jadi kaka perempuan terbaik kuu 🥹🫶🏻 
+semoga selalu dilimpahkan rezeki nyaaa, maaf yaa mba blum bisa jadi adik yang baik 🥹🥹,,
+lovee you 🫰🏻
+
+love you always 🫶🏻`);
+
+// MUSIC
+function toggleMusic(){
+let m=document.getElementById('bgm');
+m.paused?m.play():m.pause();
+}
+
+// GAME
+let score=0;
+function tapStar(){
+score++;
+document.getElementById('score').innerText=score;
+if(score===5){
+alert('✨ OIIIIII CANTIK NYAA YANG ULANG TAHUNN OYYYYY ✨');
+}
+}
+
+// MIC LILIN
+async function startMic(){
+const status=document.getElementById('micStatus');
+const flame=document.getElementById('flame');
+
+try{
+const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+const ctx=new AudioContext();
+const mic=ctx.createMediaStreamSource(stream);
+const analyser=ctx.createAnalyser();
+mic.connect(analyser);
+analyser.fftSize=256;
+
+const data=new Uint8Array(analyser.frequencyBinCount);
+
+function detect(){
+analyser.getByteFrequencyData(data);
+let vol=data.reduce((a,b)=>a+b)/data.length;
+
+if(vol>45){
+flame.style.display='none';
+status.innerText='✨ Lilin berhasil ditiup!';
+return;
+}
+requestAnimationFrame(detect);
+}
+detect();
+}catch{
+status.innerText='Mic tidak diizinkan 😢';
+}
+}
+
+// ENDING
+function startEnding(){
+document.getElementById('ending').style.display='flex';
+document.getElementById('heart').play();
+type(document.getElementById('endingText'),
+`selamat ulang tahun 🤍
+jangan lupa makan makan yeeee.`);
+}
+</script>
+
+</body>
+</html>
